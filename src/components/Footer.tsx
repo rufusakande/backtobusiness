@@ -80,9 +80,6 @@ const Footer = () => {
           <p className="text-background/60">
             © {currentYear} ABC des Réseaux - Tous droits réservés
           </p>
-          <p className="text-background/40 text-sm mt-2">
-            Créé avec ❤️ pour les entrepreneurs qui veulent briller sur les réseaux
-          </p>
         </div>
       </div>
     </footer>

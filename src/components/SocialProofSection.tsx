@@ -1,4 +1,13 @@
 import { useEffect, useRef, useState } from 'react';
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from "@/components/ui/carousel";
+import { Card, CardContent } from "@/components/ui/card";
+import Autoplay from "embla-carousel-autoplay";
 
 const SocialProofSection = () => {
   const [isVisible, setIsVisible] = useState(false);
@@ -25,28 +34,28 @@ const SocialProofSection = () => {
     {
       name: "Sophie Martin",
       role: "Coach en développement personnel",
-      avatar: "👩‍💼",
+      image: "https://images.pexels.com/photos/3760265/pexels-photo-3760265.jpeg?auto=compress&cs=tinysrgb&w=400", // Femme professionnelle souriante
       quote: "Gracie a transformé ma communication ! En 5 jours, j'ai eu un plan clair pour toute l'année. Plus de stress, plus de panne d'inspiration !",
       rating: 5
     },
     {
       name: "Thomas Dubois", 
       role: "Thérapeute en naturopathie",
-      avatar: "👨‍⚕️",
+      image: "https://images.pexels.com/photos/2379004/pexels-photo-2379004.jpeg?auto=compress&cs=tinysrgb&w=400", // Homme professionnel confiant
       quote: "J'étais perdu avec les réseaux sociaux. Maintenant, j'ai une stratégie qui me ressemble et mes clients me trouvent facilement !",
       rating: 5
     },
     {
       name: "Marie Lefebvre",
       role: "Formatrice indépendante", 
-      avatar: "👩‍🏫",
+      image: "https://images.pexels.com/photos/3760067/pexels-photo-3760067.jpeg?auto=compress&cs=tinysrgb&w=400", // Femme souriante professionnelle
       quote: "Le ROI a été immédiat : 3 nouveaux clients dès le premier mois grâce à ma nouvelle stratégie. Merci Gracie !",
       rating: 5
     },
     {
       name: "Julien Bernard",
       role: "Consultant freelance",
-      avatar: "👨‍💻", 
+      image: "https://images.pexels.com/photos/3777946/pexels-photo-3777946.jpeg?auto=compress&cs=tinysrgb&w=400", // Homme professionnel moderne
       quote: "Enfin une méthode qui va droit au but ! En 5 jours, j'ai créé plus de contenu qu'en 6 mois. C'est du concret !",
       rating: 5
     }
@@ -102,37 +111,54 @@ const SocialProofSection = () => {
         </div>
 
         {/* Testimonials */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-16">
-          {testimonials.map((testimonial, index) => (
-            <div
-              key={index}
-              className={`fade-in-up ${isVisible ? 'visible' : ''}`}
-              style={{ animationDelay: `${index * 100}ms` }}
-            >
-              <div className="bg-card p-8 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 border border-border/50">
-                {/* Rating */}
-                <div className="flex mb-4">
-                  {[...Array(testimonial.rating)].map((_, i) => (
-                    <span key={i} className="text-yellow-400 text-xl">⭐</span>
-                  ))}
-                </div>
-                
-                {/* Quote */}
-                <blockquote className="text-foreground mb-6 text-lg leading-relaxed">
-                  "{testimonial.quote}"
-                </blockquote>
-                
-                {/* Author */}
-                <div className="flex items-center gap-4">
-                  <div className="text-3xl">{testimonial.avatar}</div>
-                  <div>
-                    <div className="font-semibold text-foreground">{testimonial.name}</div>
-                    <div className="text-sm text-muted-foreground">{testimonial.role}</div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          ))}
+        <div className="mb-16">
+          <Carousel
+            plugins={[
+              Autoplay({
+                delay: 5000,
+              }),
+            ]}
+            className="w-full max-w-4xl mx-auto"
+          >
+            <CarouselContent>
+              {testimonials.map((testimonial, index) => (
+                <CarouselItem key={index}>
+                  <Card className="bg-card p-8 rounded-2xl shadow-lg border border-border/50">
+                    <CardContent className="flex flex-col md:flex-row gap-8 items-center p-0">
+                      <div className="w-full md:w-1/3">
+                        <img
+                          src={testimonial.image}
+                          alt={testimonial.name}
+                          className="w-full h-48 object-cover rounded-lg"
+                        />
+                      </div>
+                      <div className="w-full md:w-2/3">
+                        {/* Rating */}
+                        <div className="flex mb-4">
+                          {[...Array(testimonial.rating)].map((_, i) => (
+                            <span key={i} className="text-yellow-400 text-xl">⭐</span>
+                          ))}
+                        </div>
+                        
+                        {/* Quote */}
+                        <blockquote className="text-foreground mb-6 text-lg leading-relaxed">
+                          "{testimonial.quote}"
+                        </blockquote>
+                        
+                        {/* Author */}
+                        <div>
+                          <div className="font-semibold text-foreground">{testimonial.name}</div>
+                          <div className="text-sm text-muted-foreground">{testimonial.role}</div>
+                        </div>
+                      </div>
+                    </CardContent>
+                  </Card>
+                </CarouselItem>
+              ))}
+            </CarouselContent>
+            <CarouselPrevious className="hidden md:flex" />
+            <CarouselNext className="hidden md:flex" />
+          </Carousel>
         </div>
 
         {/* Trust badges */}
