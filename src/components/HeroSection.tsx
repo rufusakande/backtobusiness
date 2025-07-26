@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import graciePhoto from '@/assets/images/graciedeedeephoto.jpg';
 
 const HeroSection = () => {
   const [isVisible, setIsVisible] = useState(false);
@@ -56,7 +57,7 @@ const HeroSection = () => {
             <div className="relative max-w-md mx-auto">
               <div className="absolute inset-0 bg-gradient-to-br from-primary/20 to-secondary/20 rounded-3xl transform rotate-3"></div>
               <img
-                src="/lovable-uploads/52ecd7a7-c379-4791-9ae2-bd408c16c5e1.png"
+                src={graciePhoto}
                 alt="Gracie Deedee - Coach en marketing digital"
                 className="relative rounded-3xl w-full h-auto object-cover shadow-2xl"
                 loading="eager"
